@@ -31,7 +31,7 @@ class Canvas {
   beforeDraw() {
     const context = this._attrs.context;
     const el = this._attrs.el;
-    !Util.isWx && !Util.isMy && context && context.clearRect(0, 0, el.width, el.height);
+    context && context.clearRect && context.clearRect(0, 0, el.width, el.height);
   }
 
   _initCanvas() {
@@ -40,11 +40,11 @@ class Canvas {
     const context = self.get('context');
     let canvas;
 
-    if (context) { // CanvasRenderingContext2D
+    if (context && context.canvas) { // CanvasRenderingContext2D
       canvas = context.canvas;
     } else if (Util.isString(el)) { // HTMLElement's id
       canvas = Util.getDomById(el);
-    } else { // HTMLElement
+    } else { // HTMLElement or canvasElement
       canvas = el;
     }
 
@@ -76,14 +76,14 @@ class Canvas {
 
   changeSize(width, height) {
     const pixelRatio = this.get('pixelRatio');
-    const canvasDOM = this.get('el');
+    const canvasDOM = this.get('el'); // HTMLCanvasElement or canvasElement
 
-    if (Util.isBrowser) {
+    if (Util.isBrowser && canvasDOM.style) {
       canvasDOM.style.width = width + 'px';
       canvasDOM.style.height = height + 'px';
     }
 
-    if (!Util.isWx && !Util.isMy) {
+    if (canvasDOM || (!Util.isWx && !Util.isMy)) {
       canvasDOM.width = width * pixelRatio;
       canvasDOM.height = height * pixelRatio;
 
@@ -145,7 +145,8 @@ class Canvas {
           child.draw(context);
         }
 
-        if (Util.isWx || Util.isMy) {
+        // 支付宝，微信小程序，需要调context.draw才能完成绘制
+        if (context.draw) {
           context.draw();
         }
       } catch (ev) {

@@ -19,13 +19,14 @@ require('./component/guide/text');
 require('./component/guide/tag');
 require('./component/guide/point');
 
-const Tooltip = require('./plugin/tooltip');
-const Guide = require('./plugin/guide');
-const Legend = require('./plugin/legend');
-const Animation = require('./animation/detail');
+// const Tooltip = require('./plugin/tooltip');
+// F2.Chart.plugins.register(Tooltip);
+// const Guide = require('./plugin/guide');
+// const Legend = require('./plugin/legend');
+// const Animation = require('./animation/detail');
 
-F2.Animate = require('./animation/animate');
-// register plugins
-F2.Chart.plugins.register([ Tooltip, Legend, Guide, Animation ]);
+// F2.Animate = require('./animation/animate');
+// // register plugins
+// F2.Chart.plugins.register([ Tooltip, Guide ]);
 
 module.exports = F2;

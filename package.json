@@ -99,10 +99,7 @@
     "watch": "webpack --config webpack-dev.config.js"
   },
   "pre-commit": {
-    "run": [
-      "lint",
-      "test-all"
-    ],
+    "run": [],
     "silent": false
   },
   "dependencies": {
@@ -110,6 +107,7 @@
     "@antv/attr": "~0.1.0",
     "@antv/scale": "~0.1.2",
     "@antv/util": "~1.2.5",
-    "hammerjs": "^2.0.8"
+    "hammerjs": "^2.0.8",
+    "wolfy87-eventemitter": "^5.2.8"
   }
 }
